@@ -5,6 +5,9 @@
  */
 package apiaryanalysis;
 
+import apiaryanalysis.ioc.ApiaryAnalysisModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -26,9 +29,16 @@ public class ApiaryAnalysisApplication extends Application {
     public void start(Stage stage) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler(ApiaryAnalysisApplication::handleException);
 
+        Injector injector = Guice.createInjector(new ApiaryAnalysisModule());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ApiaryListWindow.fxml"));
+        loader.setControllerFactory(instantiatedClass -> {
+            return injector.getInstance(instantiatedClass);
+        });
+
         Scene scene = new Scene(ROOT, 800, 600);
 
-        Parent apiaryListWindow = FXMLLoader.load(getClass().getResource("ApiaryListWindow.fxml"));
+        Parent apiaryListWindow = loader.load();
 
         ROOT.setCenter(apiaryListWindow);
 

@@ -6,14 +6,12 @@
 package apiaryanalysis;
 
 import apiaryanalysis.repositories.ApiaryDataRepository;
-import apiaryanalysis.repositories.ApiaryDataRepositoryImpl;
 import apiaryanalysis.entities.Apiary;
+import com.google.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,10 +26,11 @@ public class ApiaryListWindowController implements Initializable {
     @FXML
     private TableView<Apiary> tableView;
 
-    private final ApiaryDataRepository apiaryDataRepository;
+    public final ApiaryDataRepository apiaryDataRepository;
 
-    public ApiaryListWindowController() {
-        this.apiaryDataRepository = new ApiaryDataRepositoryImpl("database/apiary-analysis.sqlite");
+    @Inject
+    public ApiaryListWindowController(ApiaryDataRepository apiaryDataRepository) {
+        this.apiaryDataRepository = apiaryDataRepository;
     }
 
     @Override
@@ -42,11 +41,7 @@ public class ApiaryListWindowController implements Initializable {
 
                 Node node;
                 try {
-                    ApiaryDetailWindowController controller = new ApiaryDetailWindowController(apiary.getId());
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("ApiaryDetailWindow.fxml"));
-                    loader.setController(controller);
-                    node = loader.load();
+                    node = FXMLLoader.load(getClass().getResource("ApiaryDetailWindow.fxml"));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
