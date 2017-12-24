@@ -8,34 +8,51 @@ package apiaryanalysis;
 import apiaryanalysis.repositories.ApiaryDataRepository;
 import apiaryanalysis.repositories.ApiaryDataRepositoryImpl;
 import apiaryanalysis.entities.Apiary;
-import apiaryanalysis.entities.Sample;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 
-public class MainWindowController implements Initializable {
+public class ApiaryListWindowController implements Initializable {
 
     @FXML
     private TableView<Apiary> tableView;
 
-    private ApiaryDataRepository apiaryDataRepository;
+    private final ApiaryDataRepository apiaryDataRepository;
+
+    public ApiaryListWindowController() {
+        this.apiaryDataRepository = new ApiaryDataRepositoryImpl("database/apiary-analysis.sqlite");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.apiaryDataRepository = new ApiaryDataRepositoryImpl("database/apiary-analysis.sqlite");
-
         this.tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getClickCount() == 2) {
-                Apiary apiary = tableView.getSelectionModel().getSelectedItem();
+                Apiary apiary = this.tableView.getSelectionModel().getSelectedItem();
 
-                List<Sample> samplesByApiary = this.apiaryDataRepository.getSamplesByApiary(apiary.getId());
+                Node node;
+                try {
+                    ApiaryDetailWindowController controller = new ApiaryDetailWindowController(apiary.getId());
 
-                int a = samplesByApiary.size();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("ApiaryDetailWindow.fxml"));
+                    loader.setController(controller);
+                    node = loader.load();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                BorderPane borderPane = ApiaryAnalysisApplication.getRoot();
+                borderPane.setCenter(node);
             }
         });
 

@@ -11,17 +11,26 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class ApiaryAnalysis extends Application {
+public class ApiaryAnalysisApplication extends Application {
+
+    private final static BorderPane ROOT = new BorderPane();
+
+    public static BorderPane getRoot() {
+        return ROOT;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
-        Thread.setDefaultUncaughtExceptionHandler(ApiaryAnalysis::handleException);
+        Thread.setDefaultUncaughtExceptionHandler(ApiaryAnalysisApplication::handleException);
 
-        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+        Scene scene = new Scene(ROOT, 800, 600);
 
-        Scene scene = new Scene(root);
+        Parent apiaryListWindow = FXMLLoader.load(getClass().getResource("ApiaryListWindow.fxml"));
+
+        ROOT.setCenter(apiaryListWindow);
 
         stage.setTitle("Apiary analysis");
         stage.setScene(scene);
@@ -36,6 +45,6 @@ public class ApiaryAnalysis extends Application {
     }
 
     public static void handleException(Thread t, Throwable e) {
-        Logger.getLogger(ApiaryAnalysis.class.getName()).log(Level.SEVERE, null, e);
+        Logger.getLogger(ApiaryAnalysisApplication.class.getName()).log(Level.SEVERE, null, e);
     }
 }
