@@ -1,4 +1,4 @@
-package apiaryanalyses.repositories;
+package apiaryanalysis.repositories;
 
 import apiaryanalysis.entities.Apiary;
 import java.util.List;

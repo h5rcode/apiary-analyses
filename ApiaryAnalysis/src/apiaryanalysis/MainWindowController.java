@@ -5,8 +5,8 @@
  */
 package apiaryanalysis;
 
-import apiaryanalyses.repositories.ApiaryDataRepository;
-import apiaryanalyses.repositories.ApiaryDataRepositoryImpl;
+import apiaryanalysis.repositories.ApiaryDataRepository;
+import apiaryanalysis.repositories.ApiaryDataRepositoryImpl;
 import apiaryanalysis.entities.Apiary;
 import java.net.URL;
 import java.util.List;
@@ -33,6 +33,6 @@ public class MainWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.apiaryDataRepository = new ApiaryDataRepositoryImpl();
+        this.apiaryDataRepository = new ApiaryDataRepositoryImpl("D:/Francois/NetBeansProjects/apiary-analysis/ApiaryAnalysis/database/apiary-analysis.sqlite");
     }
 }

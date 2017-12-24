@@ -1,4 +1,4 @@
-package apiaryanalyses.repositories;
+package apiaryanalysis.repositories;
 
 import apiaryanalysis.entities.Apiary;
 import com.j256.ormlite.dao.Dao;
@@ -7,17 +7,15 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ApiaryDataRepositoryImpl implements ApiaryDataRepository {
 
     private final ConnectionSource connectionSource;
     private final Dao<Apiary, Integer> apiaryDao;
 
-    public ApiaryDataRepositoryImpl() {
+    public ApiaryDataRepositoryImpl(String filename) {
         try {
-            this.connectionSource = new JdbcConnectionSource("jdbc:sqlite:D:/Francois/analyses.sqlite");
+            this.connectionSource = new JdbcConnectionSource("jdbc:sqlite:" + filename);
             apiaryDao = DaoManager.createDao(connectionSource, Apiary.class);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
