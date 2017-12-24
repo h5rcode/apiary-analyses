@@ -1,6 +1,7 @@
 package apiaryanalysis.repositories;
 
 import apiaryanalysis.entities.Apiary;
+import apiaryanalysis.entities.Sample;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -12,11 +13,13 @@ public class ApiaryDataRepositoryImpl implements ApiaryDataRepository {
 
     private final ConnectionSource connectionSource;
     private final Dao<Apiary, Integer> apiaryDao;
+    private final Dao<Sample, Integer> sampleDao;
 
     public ApiaryDataRepositoryImpl(String filename) {
         try {
             this.connectionSource = new JdbcConnectionSource("jdbc:sqlite:" + filename);
-            apiaryDao = DaoManager.createDao(connectionSource, Apiary.class);
+            this.apiaryDao = DaoManager.createDao(connectionSource, Apiary.class);
+            this.sampleDao = DaoManager.createDao(connectionSource, Sample.class);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -35,6 +38,15 @@ public class ApiaryDataRepositoryImpl implements ApiaryDataRepository {
     public Apiary getApiary(int id) {
         try {
             return this.apiaryDao.queryForId(id);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public List<Sample> getSamplesByApiary(int apiaryId) {
+        try {
+            return this.sampleDao.queryForEq("rucherId", apiaryId);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
