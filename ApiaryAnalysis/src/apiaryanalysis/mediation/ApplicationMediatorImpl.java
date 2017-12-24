@@ -21,13 +21,13 @@ public class ApplicationMediatorImpl implements ApplicationMediator {
 
     @Override
     public void displayApiaries() {
-        changeController("/apiaryanalysis/ApiaryListWindow.fxml");
+        changeController("/apiaryanalysis/controllers/ApiaryListWindow.fxml");
     }
 
     @Override
     public void displayApiaryDetail(int apiaryId) {
         this.sessionManager.setCurrentApiaryId(apiaryId);
-        changeController("/apiaryanalysis/ApiaryDetailWindow.fxml");
+        changeController("/apiaryanalysis/controllers/ApiaryDetailWindow.fxml");
     }
 
     private void changeController(final String resourceName) {

@@ -1,7 +1,9 @@
-package apiaryanalysis;
+package apiaryanalysis.controllers;
 
+import apiaryanalysis.dtos.ApiaryDetailDto;
 import apiaryanalysis.entities.Apiary;
 import apiaryanalysis.repositories.ApiaryDataRepository;
+import apiaryanalysis.services.ApiaryService;
 import apiaryanalysis.session.SessionManager;
 import com.google.inject.Inject;
 import java.net.URL;
@@ -12,15 +14,15 @@ import javafx.scene.control.Label;
 
 public class ApiaryDetailWindowController implements Initializable {
 
-    private final ApiaryDataRepository apiaryDataRepository;
+    private final ApiaryService apiaryService;
     private final SessionManager sessionManager;
 
     @FXML
     private Label labelName;
 
     @Inject
-    public ApiaryDetailWindowController(ApiaryDataRepository apiaryDataRepository, SessionManager sessionManager) {
-        this.apiaryDataRepository = apiaryDataRepository;
+    public ApiaryDetailWindowController(ApiaryService apiaryService, SessionManager sessionManager) {
+        this.apiaryService = apiaryService;
         this.sessionManager = sessionManager;
     }
 
@@ -32,8 +34,7 @@ public class ApiaryDetailWindowController implements Initializable {
             throw new RuntimeException("Could not find current apiary id in the session.");
         }
 
-        Apiary apiary = apiaryDataRepository.getApiary(apiaryId);
-
-        labelName.setText(apiary.getName());
+        ApiaryDetailDto apiary = this.apiaryService.getApiaryDetail(apiaryId);
+        labelName.setText(apiary.name);
     }
 }

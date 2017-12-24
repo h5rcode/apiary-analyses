@@ -4,6 +4,8 @@ import apiaryanalysis.mediation.ApplicationMediator;
 import apiaryanalysis.mediation.ApplicationMediatorImpl;
 import apiaryanalysis.repositories.ApiaryDataRepository;
 import apiaryanalysis.repositories.ApiaryDataRepositoryImpl;
+import apiaryanalysis.services.ApiaryService;
+import apiaryanalysis.services.ApiaryServiceImpl;
 import apiaryanalysis.session.SessionManager;
 import apiaryanalysis.session.SessionManagerImpl;
 import com.google.inject.AbstractModule;
@@ -14,6 +16,7 @@ public class ApiaryAnalysisModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(ApiaryService.class).to(ApiaryServiceImpl.class);
     }
 
     @Provides

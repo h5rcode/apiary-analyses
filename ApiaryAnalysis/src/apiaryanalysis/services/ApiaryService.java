@@ -1,8 +1,8 @@
 package apiaryanalysis.services;
 
-import apiaryanalysis.entities.Apiary;
+import apiaryanalysis.dtos.ApiaryDetailDto;
 
 public interface ApiaryService {
 
-    Apiary getApiary(int apiaryId);
+    ApiaryDetailDto getApiaryDetail(int apiaryId);
 }

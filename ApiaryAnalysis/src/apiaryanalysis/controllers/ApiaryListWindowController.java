@@ -1,4 +1,4 @@
-package apiaryanalysis;
+package apiaryanalysis.controllers;
 
 import apiaryanalysis.repositories.ApiaryDataRepository;
 import apiaryanalysis.entities.Apiary;
