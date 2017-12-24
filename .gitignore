@@ -18,5 +18,11 @@
 *.tar.gz
 *.rar
 
+# External libraries
+!/ApiaryAnalysis/libs/*.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/ApiaryAnalysis/nbproject/private/
+/ApiaryAnalysis/build/
+/ApiaryAnalysis/dist/
