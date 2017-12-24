@@ -1,25 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package apiaryanalysis;
 
 import apiaryanalysis.repositories.ApiaryDataRepository;
 import apiaryanalysis.entities.Apiary;
+import apiaryanalysis.mediation.ApplicationMediator;
 import com.google.inject.Inject;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 
 public class ApiaryListWindowController implements Initializable {
 
@@ -28,9 +20,12 @@ public class ApiaryListWindowController implements Initializable {
 
     public final ApiaryDataRepository apiaryDataRepository;
 
+    public final ApplicationMediator applicationMediator;
+
     @Inject
-    public ApiaryListWindowController(ApiaryDataRepository apiaryDataRepository) {
+    public ApiaryListWindowController(ApiaryDataRepository apiaryDataRepository, ApplicationMediator applicationMediator) {
         this.apiaryDataRepository = apiaryDataRepository;
+        this.applicationMediator = applicationMediator;
     }
 
     @Override
@@ -38,16 +33,7 @@ public class ApiaryListWindowController implements Initializable {
         this.tableView.setOnMouseClicked((MouseEvent event) -> {
             if (event.getClickCount() == 2) {
                 Apiary apiary = this.tableView.getSelectionModel().getSelectedItem();
-
-                Node node;
-                try {
-                    node = FXMLLoader.load(getClass().getResource("ApiaryDetailWindow.fxml"));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                BorderPane borderPane = ApiaryAnalysisApplication.getRoot();
-                borderPane.setCenter(node);
+                this.applicationMediator.displayApiaryDetail(apiary.getId());
             }
         });
 
