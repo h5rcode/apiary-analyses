@@ -18,6 +18,15 @@ public class Sample {
     @DatabaseField(columnName = "RucherId", foreign = true)
     private Apiary apiary;
 
+    @DatabaseField(columnName = "organismeIdPreleveur", foreign = true)
+    private Organization samplerOrganization;
+
+    @DatabaseField(columnName = "organismeIdFinanceur", foreign = true)
+    private Organization financerOrganization;
+
+    @DatabaseField(columnName = "matriceCode", foreign = true)
+    private Matrix matrix;
+
     public Sample() {
     }
 
@@ -51,5 +60,29 @@ public class Sample {
 
     public void setMatrixCode(String matrixCode) {
         this.matrixCode = matrixCode;
+    }
+
+    public Organization getSamplerOrganization() {
+        return samplerOrganization;
+    }
+
+    public void setSamplerOrganization(Organization organizationIdSampler) {
+        this.samplerOrganization = organizationIdSampler;
+    }
+
+    public Organization getFinancerOrganization() {
+        return financerOrganization;
+    }
+
+    public void setFinancerOrganization(Organization organizationIdFinancer) {
+        this.financerOrganization = organizationIdFinancer;
+    }
+
+    public Matrix getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(Matrix matrix) {
+        this.matrix = matrix;
     }
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="apiaryanalysis.controllers.ApiaryDetailWindowController">
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Général">
+                    <content>
+                        <BorderPane>
+                            <bottom>
+                                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <items>
+                                        <Button mnemonicParsing="false" onMouseClicked="#saveApiary" text="Enregistrer" />
+                                    </items>
+                                </ToolBar>
+                            </bottom>
+                            <top>
+                                <GridPane hgap="15.0" maxHeight="-Infinity" BorderPane.alignment="CENTER">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Nom" />
+                                        <TextField fx:id="textFieldName" GridPane.columnIndex="1" />
+                                        <Label text="Numéro d'ordre" GridPane.rowIndex="1" />
+                                        <TextField fx:id="textFieldOrderNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label text="Numéro de dossier" GridPane.rowIndex="2" />
+                                        <TextField fx:id="textFieldFileNumber" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </GridPane>
+                            </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Echantillons">
+                    <content>
+                        <BorderPane>
+                            <center>
+                                <TableView fx:id="tableView" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn text="Identifiant">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="identifier" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Matrice">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="matrixLabel" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Préleveur">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="samplerOrganizationName" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn text="Financeur">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="financerOrganizationName" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList" />
+                                    </items>
+                                </TableView>
+                            </center>
+                            <bottom>
+                                <ToolBar BorderPane.alignment="CENTER">
+                                    <items>
+                                        <Button mnemonicParsing="false" onMouseClicked="#addSample" text="Ajouter un échantillon" />
+                                    </items>
+                                </ToolBar>
+                            </bottom>
+                        </BorderPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>

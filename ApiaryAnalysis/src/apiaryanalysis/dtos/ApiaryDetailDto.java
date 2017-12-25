@@ -17,11 +17,10 @@ public class ApiaryDetailDto {
     public List<ApiaryDetailSampleDto> samples;
 
     public ApiaryDetailDto(Apiary apiary, List<ApiaryDetailSampleDto> sampleDtos) {
-        this.id = apiary.getId();
+        this.id = apiary.getId().intValue();
         this.name = apiary.getName();
-        this.orderNumber = apiary.getOrderNumber();
+        this.orderNumber = apiary.getOrderNumber().intValue();
         this.fileNumber = apiary.getFileNumber();
         this.samples = new ArrayList<>(sampleDtos);
     }
-
 }

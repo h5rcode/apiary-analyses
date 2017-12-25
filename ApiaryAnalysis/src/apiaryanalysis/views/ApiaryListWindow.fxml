@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="apiaryanalysis.controllers.ApiaryListWindowController">
+    <center> 
+        <TableView fx:id="tableView" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn text="Nom">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="75.0" text="Numéro d'ordre">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="orderNumber" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Numéro de dossier">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="fileNumber" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <items>
+                <FXCollections fx:factory="observableArrayList" />
+            </items>
+        </TableView>
+    </center>
+    <bottom>
+        <ToolBar BorderPane.alignment="CENTER">
+            <items>
+                <TextField fx:id="textFieldName" promptText="Nom" />
+                <TextField fx:id="textFieldOrderNumber" promptText="Numéro d'ordre" />
+                <TextField fx:id="textFieldFileNumber" promptText="Numéro de dossier" />
+                <Button mnemonicParsing="false" onMouseClicked="#addApiary" text="Ajouter un rucher" />
+            </items>
+        </ToolBar>
+    </bottom>
+</BorderPane>

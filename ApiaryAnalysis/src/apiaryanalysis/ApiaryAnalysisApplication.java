@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -24,7 +25,8 @@ public class ApiaryAnalysisApplication extends Application {
 
         Injector injector = ApiaryAnalysisInjector.getInjector();
 
-        Scene scene = new Scene(ROOT, 800, 600);
+        Scene scene = new Scene(ROOT);
+        stage.getIcons().add(new Image("file:resources/beehive.png"));
         stage.setTitle("Apiary analysis");
         stage.setScene(scene);
         stage.show();

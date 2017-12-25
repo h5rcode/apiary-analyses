@@ -9,15 +9,15 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Apiary {
 
     @DatabaseField(id = true)
-    private int id;
+    private Integer id;
 
-    @DatabaseField(columnName = "Nom")
+    @DatabaseField(columnName = "Nom", canBeNull = false)
     private String name;
 
-    @DatabaseField(columnName = "NumeroOrdre")
-    private int orderNumber;
+    @DatabaseField(columnName = "NumeroOrdre", canBeNull = false)
+    private Integer orderNumber;
 
-    @DatabaseField(columnName = "NumeroDossier")
+    @DatabaseField(columnName = "NumeroDossier", canBeNull = false)
     private String fileNumber;
 
     @ForeignCollectionField
@@ -26,11 +26,11 @@ public class Apiary {
     public Apiary() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,11 +42,11 @@ public class Apiary {
         this.name = name;
     }
 
-    public int getOrderNumber() {
+    public Integer getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
 

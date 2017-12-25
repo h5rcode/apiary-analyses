@@ -5,9 +5,6 @@ import apiaryanalysis.dtos.ApiaryDetailSampleDto;
 import apiaryanalysis.entities.Apiary;
 import apiaryanalysis.entities.Sample;
 import apiaryanalysis.repositories.ApiaryDataRepository;
-import com.j256.ormlite.dao.CloseableIterator;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -24,27 +21,29 @@ public class ApiaryServiceImpl implements ApiaryService {
     @Override
     public ApiaryDetailDto getApiaryDetail(int apiaryId) {
         Apiary apiary = apiaryDataRepository.getApiary(apiaryId);
+
+        List<Sample> samples = apiaryDataRepository.getSamplesByApiary(apiaryId);
+
         List<ApiaryDetailSampleDto> sampleDtos = new ArrayList<>();
-
-        CloseableIterator<Sample> closeableIterator = apiary.samples.closeableIterator();
-
-        try {
-            while (closeableIterator.hasNext()) {
-                Sample sample;
-                sample = closeableIterator.current();
-
-                ApiaryDetailSampleDto sampleDto = new ApiaryDetailSampleDto(sample);
-            }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        } finally {
-            try {
-                closeableIterator.close();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+        for (Sample sample : samples) {
+            sampleDtos.add(new ApiaryDetailSampleDto(sample));
         }
 
         return new ApiaryDetailDto(apiary, sampleDtos);
+    }
+
+    @Override
+    public List<Apiary> getApiaries() {
+        return this.apiaryDataRepository.getApiaries();
+    }
+
+    @Override
+    public void saveApiary(Apiary apiary) {
+        this.apiaryDataRepository.saveApiary(apiary);
+    }
+
+    @Override
+    public void updateApiary(Apiary apiary) {
+        this.apiaryDataRepository.updateApiary(apiary);
     }
 }

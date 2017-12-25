@@ -11,4 +11,8 @@ public interface ApiaryDataRepository {
     Apiary getApiary(int id);
 
     List<Sample> getSamplesByApiary(int apiaryId);
+
+    public void saveApiary(Apiary apiary);
+
+    public void updateApiary(Apiary apiary);
 }
