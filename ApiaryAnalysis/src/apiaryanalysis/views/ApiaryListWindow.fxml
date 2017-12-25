@@ -38,9 +38,6 @@
     <bottom>
         <ToolBar BorderPane.alignment="CENTER">
             <items>
-                <TextField fx:id="textFieldName" promptText="Nom" />
-                <TextField fx:id="textFieldOrderNumber" promptText="Numéro d'ordre" />
-                <TextField fx:id="textFieldFileNumber" promptText="Numéro de dossier" />
                 <Button mnemonicParsing="false" onMouseClicked="#addApiary" text="Ajouter un rucher" />
             </items>
         </ToolBar>

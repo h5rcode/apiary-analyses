@@ -1,5 +1,6 @@
 package apiaryanalysis.controllers;
 
+import apiaryanalysis.dialogs.dtos.AddApiaryDialogResult;
 import apiaryanalysis.entities.Apiary;
 import apiaryanalysis.mediation.ApplicationMediator;
 import apiaryanalysis.services.ApiaryService;
@@ -11,22 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class ApiaryListWindowController implements Initializable {
 
     @FXML
     private TableView<Apiary> tableView;
-
-    @FXML
-    private TextField textFieldName;
-
-    @FXML
-    private TextField textFieldOrderNumber;
-
-    @FXML
-    private TextField textFieldFileNumber;
 
     public final ApiaryService apiaryService;
 
@@ -54,17 +45,12 @@ public class ApiaryListWindowController implements Initializable {
 
     @FXML
     private void addApiary(MouseEvent event) {
-        String name = this.textFieldName.getText();
-        String fileNumber = this.textFieldFileNumber.getText();
-        String orderNumber = this.textFieldOrderNumber.getText();
+        AddApiaryDialogResult result = this.applicationMediator.displayAddApiaryDialog();
 
-        Apiary apiary = new Apiary();
-        apiary.setName(name);
-        apiary.setFileNumber(fileNumber);
-        apiary.setOrderNumber(Integer.valueOf(orderNumber));
-
-        this.apiaryService.saveApiary(apiary);
-        loadApiaries();
+        if (result.isSuccess()) {
+            loadApiaries();
+        } else {
+        }
     }
 
     private void loadApiaries() {
